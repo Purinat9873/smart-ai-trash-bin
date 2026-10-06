@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="3">
+    <title>Smart AI Trash Bin - ผลการสแกนสด (Cloud AI)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+        .container { max-width: 1040px; margin: 0 auto; background: #1e293b; border-radius: 16px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { margin-top: 0; color: #38bdf8; display: flex; align-items: center; justify-content: space-between; font-size: 26px; }
+        .badge { background: #16a34a; color: white; padding: 4px 12px; border-radius: 20px; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+        .card { background: #334155; border-radius: 12px; padding: 20px; border-left: 8px solid #ffc107; }
+        .card h2 { margin: 0 0 12px 0; font-size: 18px; color: #94a3b8; }
+        .result-title { font-size: 30px; font-weight: bold; color: #ffc107; margin-bottom: 12px; }
+        .spec-item { margin: 10px 0; font-size: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #475569; padding-bottom: 6px; }
+        .spec-label { color: #94a3b8; }
+        .spec-val { font-weight: bold; color: #f1f5f9; }
+        .img-box { border-radius: 12px; overflow: hidden; border: 2px solid #475569; background: #020617; text-align: center; }
+        .img-box img { width: 100%; height: auto; display: block; }
+        .status-pill { display: inline-block; background: #22c55e; color: #022c22; font-weight: bold; padding: 6px 14px; border-radius: 20px; font-size: 13px; }
+        .desc-box { background: #0f172a; padding: 12px; border-radius: 8px; margin-top: 14px; font-size: 14px; color: #cbd5e1; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>🗑️ SMART AI TRASH BIN - CLOUD AI LIVE</span>
+            <span class="badge">● เชื่อมต่อไร้สายสำเร็จ</span>
+        </h1>
+        
+        <div class="grid">
+            <div class="img-box">
+                <img src="RESULT_SCAN.jpg?t=1791212024415" alt="OV2640 Camera Capture">
+            </div>
+
+            <div>
+                <div class="card">
+                    <h2>ผลการจำแนกประเภทขยะ (YOLOv8 Cloud Model)</h2>
+                    <div class="result-title">ขยะรีไซเคิล (Recyclable)</div>
+                    <div class="spec-item"><span class="spec-label">วิธีการประมวลผล:</span><span class="spec-val" style="color:#38bdf8;">Cloud AI (HTTP POST)</span></div>
+                    <div class="spec-item"><span class="spec-label">วัตถุที่ตรวจพบ:</span><span class="spec-val">แก้วน้ำ / ขวดน้ำ / กระป๋องรีไซเคิล (Recyclable)</span></div>
+                    <div class="spec-item"><span class="spec-label">ระดับความมั่นใจ:</span><span class="spec-val" style="color:#4ade80;">34.3%</span></div>
+                    <div class="spec-item"><span class="spec-label">สีฝาถัง:</span><span class="spec-val">YELLOW LID</span></div>
+                    <div class="spec-item"><span class="spec-label">เซอร์โวเป้าหมาย:</span><span class="spec-val" style="color:#38bdf8;">GPIO 38</span></div>
+                    <div class="spec-item"><span class="spec-label">เวลาประมวลผล:</span><span class="spec-val">290.4 ms</span></div>
+                    <div class="desc-box">💡 <b>คำแนะนำ:</b> ขวดน้ำ PET ใส, แก้วน้ำ, กระป๋องอลูมิเนียม, กล่องกระดาษ</div>
+                </div>
+
+                <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between;">
+                    <span class="status-pill">● สแกนครั้งที่ 2</span>
+                    <span style="font-size: 13px; color: #94a3b8;">อัปเดตล่าสุด: 21:53:44</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 28px; background: #0f172a; padding: 18px; border-radius: 12px; border: 1px solid #334155;">
+            <h3 style="margin-top:0; color:#38bdf8;">🗂️ ประวัติภาพถ่ายการสแกนทั้งหมด (Captured Scans Gallery)</h3>
+            <div class="gallery-grid">
+                <div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_215344.jpg" target="_blank"><img src="captured_scans/raw_20261005_215344.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_215344.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_215344.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_215344_RECYCLE.jpg" target="_blank"><img src="captured_scans/scan_20261005_215344_RECYCLE.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_215344_RECYCLE.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_215344_RECYCLE.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_215108.jpg" target="_blank"><img src="captured_scans/raw_20261005_215108.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_215108.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_215108.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_215108_RECYCLE.jpg" target="_blank"><img src="captured_scans/scan_20261005_215108_RECYCLE.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_215108_RECYCLE.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_215108_RECYCLE.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_164210.jpg" target="_blank"><img src="captured_scans/raw_20261005_164210.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_164210.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_164210.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_164210_GENERAL.jpg" target="_blank"><img src="captured_scans/scan_20261005_164210_GENERAL.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_164210_GENERAL.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_164210_GENERAL.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_164143.jpg" target="_blank"><img src="captured_scans/raw_20261005_164143.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_164143.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_164143.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_164143_GENERAL.jpg" target="_blank"><img src="captured_scans/scan_20261005_164143_GENERAL.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_164143_GENERAL.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_164143_GENERAL.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_164112.jpg" target="_blank"><img src="captured_scans/raw_20261005_164112.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_164112.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_164112.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_164112_GENERAL.jpg" target="_blank"><img src="captured_scans/scan_20261005_164112_GENERAL.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_164112_GENERAL.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_164112_GENERAL.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/raw_20261005_163643.jpg" target="_blank"><img src="captured_scans/raw_20261005_163643.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="raw_20261005_163643.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">raw_20261005_163643.jpg</div></div><div style="background:#1e293b; border-radius:8px; overflow:hidden; border:1px solid #475569;"><a href="captured_scans/scan_20261005_163643_RECYCLE.jpg" target="_blank"><img src="captured_scans/scan_20261005_163643_RECYCLE.jpg" style="width:100%; height:120px; object-fit:cover; display:block;" alt="scan_20261005_163643_RECYCLE.jpg"></a><div style="padding:6px; font-size:11px; color:#cbd5e1; word-break:break-all;">scan_20261005_163643_RECYCLE.jpg</div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+
+# Large Training Checkpoints & Heavy Temporary Caches
+ai_training/runs/
+ai_training/coco/
+ai_training/coco128/
+ai_training/coco128.zip
+ai_training/coco2017labels.zip
+ai_training/scratch_boxes/
+ai_training/scratch_boxes_tissue/
+*.zip
+*.tar.gz
+
+# Logs & temporary files
+*.log
+test_run.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor User Configs (Preserve workspace & tasks)
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json

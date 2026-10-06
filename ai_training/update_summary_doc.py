@@ -1,0 +1,541 @@
+import os
+import subprocess
+
+PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+HTML_PATH = os.path.join(PROJECT_DIR, "SMART_AI_TRASH_BIN_MASTER_SUMMARY.html")
+PDF_PATH = os.path.join(PROJECT_DIR, "SMART_AI_TRASH_BIN_MASTER_SUMMARY.pdf")
+MD_PATH = os.path.join(PROJECT_DIR, "SMART_AI_TRASH_BIN_MASTER_SUMMARY.md")
+
+html_content = """<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เอกสารสรุปโครงการฉบับสมบูรณ์ - ถังขยะอัจฉริยะคัดแยก 4 ประเภทด้วย AI (Smart AI Trash Bin)</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm 12mm 10mm 12mm;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        body {
+            font-family: 'Sarabun', 'Tahoma', 'Segoe UI', sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+            font-size: 12.5px;
+            line-height: 1.45;
+        }
+        .header-banner {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: #ffffff;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-bottom: 4px solid #38bdf8;
+        }
+        .header-banner h1 {
+            margin: 0 0 4px 0;
+            font-size: 20px;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+        .header-banner p {
+            margin: 0;
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+        .header-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 11px;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 6px;
+        }
+        h2 {
+            font-size: 14px;
+            color: #0f172a;
+            border-left: 4px solid #0284c7;
+            padding-left: 8px;
+            margin: 14px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        h3 {
+            font-size: 12.5px;
+            color: #1e40af;
+            margin: 10px 0 4px 0;
+        }
+        p, li {
+            font-size: 12px;
+            color: #334155;
+            margin: 3px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 10px 0;
+            font-size: 11.5px;
+        }
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 5px 8px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 600;
+        }
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-size: 10.5px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .badge-blue { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+        .badge-yellow { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+        .badge-green { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .badge-red { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .badge-purple { background: #f3e8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+        .badge-gray { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+        .callout {
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        .callout-success { background: #ecfdf5; border-left: 4px solid #10b981; color: #065f46; }
+        .callout-warning { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; }
+        .callout-info { background: #f0f9ff; border-left: 4px solid #0ea5e9; color: #0369a1; }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .card h4 {
+            margin: 0 0 4px 0;
+            font-size: 12.5px;
+        }
+        .code-inline {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 11px;
+            border: 1px solid #e2e8f0;
+        }
+        .page-break {
+            page-break-after: always;
+            break-after: page;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== PAGE 1 ==================== -->
+    <div class="header-banner">
+        <h1>📑 เอกสารสรุปโครงการฉบับสมบูรณ์ (Master Project Summary)</h1>
+        <p>ระบบถังขยะอัจฉริยะคัดแยก 4 ประเภทด้วย AI (Smart AI 4-Class Sorting Trash Bin)</p>
+        <div class="header-meta">
+            <span><b>บอร์ดประมวลผล:</b> ESP32-S3 N16R8 (16MB Flash, 8MB PSRAM)</span>
+            <span><b>โมเดล AI:</b> Triple-Mode (Wireless Cloud AI + Standalone Edge AI + USB Lab)</span>
+            <span><b>สถานะระบบ:</b> Standalone & Cloud Ready 100% (ทำงานได้ทั้งมีเน็ตและไม่มีเน็ตโดยไม่ต้องต่อคอม)</span>
+        </div>
+    </div>
+
+    <div class="callout callout-success">
+        <b>🌟 สรุปภาพรวมความสำเร็จและสถาปัตยกรรมระบบ:</b><br/>
+        ระบบสามารถตรวจจับวัตถุขยะอัตโนมัติผ่านเซนเซอร์อินฟราเรด สั่งกล้อง OV2640 ถ่ายภาพ และทำการจำแนกประเภทขยะออกเป็น <b>4 ประเภท</b> (ขยะทั่วไป, ขยะรีไซเคิล, ขยะเปียก, ขยะอันตราย) สั่งเปิดฝาถังขยะช่องที่ถูกต้องด้วยเซอร์โวมอเตอร์ 4 ตัว พร้อมเซนเซอร์อัลตราโซนิคตรวจเช็คขยะเต็มและล็อกฝาถังเตือนอัตโนมัติ<br/>
+        <b>โดยเฉพาะอย่างยิ่ง เมื่อถอดสายออกจากแล็ปท็อป (ไม่ต่อคอม) ระบบสามารถทำงานได้ 2 รูปแบบย่อยอย่างสมบูรณ์:</b><br/>
+        1. <b>โหมดไม่ต่อคอม + มีเน็ต (Wireless Cloud AI):</b> สลับ Wi-Fi ไปเกาะ Wi-Fi บ้าน/Hotspot มือถือ แล้วยิงภาพ JPEG ขึ้น Cloud Server (YOLOv8) แบบไร้สาย 100%<br/>
+        2. <b>โหมดไม่ต่อคอม + ไม่มีเน็ต (Offline Standalone Edge AI):</b> ประมวลผลบนชิป ESP32-S3 (TJpg_Decoder) ถอดรหัสภาพวิเคราะห์ค่าสี HSV และแสงสะท้อนขวดน้ำในตัวบอร์ดเองโดยไม่ต้องมีเน็ต
+    </div>
+
+    <h2>1. ข้อมูลถังขยะ 4 ประเภท และการสั่งการฮาร์ดแวร์</h2>
+    <div class="grid-4">
+        <div class="card" style="border-top: 4px solid #0d6efd;">
+            <h4><span class="badge badge-blue">ช่อง 1: ทั่วไป</span></h4>
+            <p><b>ชื่อ:</b> General Waste</p>
+            <p><b>สีฝา:</b> ฝาสีน้ำเงิน</p>
+            <p><b>เซอร์โว:</b> <span class="code-inline">GPIO 21</span></p>
+            <p><b>อัลตราโซนิค:</b> <span class="code-inline">Echo 47</span></p>
+            <p style="font-size:11px; color:#64748b;">ซองขนม, กล่องโฟม, ถุงพลาสติก, ทิชชู่</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #ffc107;">
+            <h4><span class="badge badge-yellow">ช่อง 2: รีไซเคิล</span></h4>
+            <p><b>ชื่อ:</b> Recyclable</p>
+            <p><b>สีฝา:</b> ฝาสีเหลือง</p>
+            <p><b>เซอร์โว:</b> <span class="code-inline">GPIO 38</span></p>
+            <p><b>อัลตราโซนิค:</b> <span class="code-inline">Echo 48</span></p>
+            <p style="font-size:11px; color:#64748b;">ขวดน้ำ PET ใส, แก้วพลาสติก, กระป๋อง</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #198754;">
+            <h4><span class="badge badge-green">ช่อง 3: ขยะเปียก</span></h4>
+            <p><b>ชื่อ:</b> Organic / Food</p>
+            <p><b>สีฝา:</b> ฝาสีเขียว</p>
+            <p><b>เซอร์โว:</b> <span class="code-inline">GPIO 39</span></p>
+            <p><b>อัลตราโซนิค:</b> <span class="code-inline">Echo 3</span></p>
+            <p style="font-size:11px; color:#64748b;">เศษอาหาร, เปลือกกล้วย, ผลไม้, ผัก</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #dc3545;">
+            <h4><span class="badge badge-red">ช่อง 4: อันตราย</span></h4>
+            <p><b>ชื่อ:</b> Hazardous</p>
+            <p><b>สีฝา:</b> ฝาสีแดง</p>
+            <p><b>เซอร์โว:</b> <span class="code-inline">GPIO 40</span></p>
+            <p><b>อัลตราโซนิค:</b> <span class="code-inline">Echo 10</span></p>
+            <p style="font-size:11px; color:#64748b;">ถ่านไฟฉาย, แบตเตอรี่, หลอดไฟ, แผงยา</p>
+        </div>
+    </div>
+
+    <h2>2. สถาปัตยกรรมระบบ 3 โหมด (Triple-Mode AI Architecture)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:18%;">คุณสมบัติ</th>
+                <th style="width:28%;">โหมด A: ไม่ต่อคอม + มีเน็ต<br/>(Wireless Cloud AI)</th>
+                <th style="width:27%;">โหมด B: ไม่ต่อคอม + ไร้เน็ต<br/>(Offline Standalone Edge AI)</th>
+                <th style="width:27%;">โหมด C: เสียบสายต่อคอม<br/>(PC Lab & Dashboard)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>สาย USB ต่อคอม</b></td>
+                <td><span class="badge badge-green">ไม่ต้องเสียบสาย (ไร้สาย)</span></td>
+                <td><span class="badge badge-green">ไม่ต้องเสียบสาย (ไร้สาย)</span></td>
+                <td><span class="badge badge-blue">เสียบสาย USB-C (Serial)</span></td>
+            </tr>
+            <tr>
+                <td><b>อินเทอร์เน็ต / Wi-Fi</b></td>
+                <td><span class="badge badge-blue">ต้องการ Wi-Fi หรือ Hotspot</span></td>
+                <td><span class="badge badge-green">ไม่ต้องมีเน็ต 100% (Offline)</span></td>
+                <td>มีหรือไม่มีก็ได้</td>
+            </tr>
+            <tr>
+                <td><b>สถานที่ประมวลผล</b></td>
+                <td><b>Cloud Server (YOLOv8)</b> บนเครือข่าย/อินเทอร์เน็ต</td>
+                <td><b>ชิป ESP32-S3 ในตัว</b> (PSRAM 8MB)</td>
+                <td><b>โปรแกรมบนคอมพิวเตอร์</b> (Python YOLOv8)</td>
+            </tr>
+            <tr>
+                <td><b>เทคโนโลยี AI</b></td>
+                <td>Custom YOLOv8 (<span class="code-inline">smart_bin_best.pt</span>) ความแม่นยำ 99.7% (Recall 100%, mAP50: 99.5%)</td>
+                <td><span class="code-inline">TJpg_Decoder</span> วิเคราะห์ค่าสี HSV + จุดสะท้อนแสงผิวมัน (Specular)</td>
+                <td>Custom YOLOv8 พร้อมหน้าต่างแสดงผล Dashboard สด</td>
+            </tr>
+            <tr>
+                <td><b>ความเร็วประมวลผล</b></td>
+                <td>~3.0 - 4.0 วินาที (สลับ Wi-Fi ส่งภาพ)</td>
+                <td><b>~20 - 80 มิลลิวินาที</b> (รวดเร็วทันใจ)</td>
+                <td>~0.3 - 0.5 วินาที (ส่งตรงผ่านสาย USB)</td>
+            </tr>
+            <tr>
+                <td><b>จุดเด่นและการใช้งาน</b></td>
+                <td>ตั้งถังขยะจุดไหนก็ได้ในบ้าน/อาคาร ได้โมเดล AI ตัวแม่นยำสูงสุด อัปเดตโมเดลได้</td>
+                <td>พกพาไปตั้งกลางแจ้ง นอกสถานที่ ไฟดับ หรือเน็ตล่มก็ทำงานได้ 100% ไม่มีสะดุด</td>
+                <td>สาธิตงานพรีเซนต์ โชว์ภาพขึ้นจอคอมใหญ่ และเก็บภาพสแกนเข้าดาต้าเซ็ต</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- ==================== PAGE 2 ==================== -->
+    <h2>3. ตารางการต่อสายฮาร์ดแวร์แบบละเอียดทุกพิน (Hardware Pinout Map)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>อุปกรณ์</th>
+                <th>ขาบนอุปกรณ์</th>
+                <th>เชื่อมต่อไปยัง</th>
+                <th>พินบน ESP32-S3</th>
+                <th>หน้าที่และข้อกำหนด</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="4"><b>จอแสดงผล OLED 0.96"</b><br/>(I2C SSD1306, 0x3C)</td>
+                <td>VCC</td>
+                <td>5V Rail หรือ 3.3V</td>
+                <td>-</td>
+                <td>ไฟเลี้ยงจอแสดงผล</td>
+            </tr>
+            <tr>
+                <td>GND</td>
+                <td>Common GND</td>
+                <td>GND</td>
+                <td>กราวด์ร่วมระบบ</td>
+            </tr>
+            <tr>
+                <td>SDA</td>
+                <td>ขาข้อมูล I2C</td>
+                <td><b>GPIO 1</b></td>
+                <td>ส่งข้อมูลภาพ/ตัวอักษร</td>
+            </tr>
+            <tr>
+                <td>SCL</td>
+                <td>ขานาฬิกา I2C</td>
+                <td><b>GPIO 2</b></td>
+                <td>สัญญาณ Clock I2C</td>
+            </tr>
+            <tr style="border-top: 2px solid #cbd5e1;">
+                <td rowspan="3"><b>เซนเซอร์อินฟราเรด FC-51</b><br/>(ตรวจขยะหน้ากล้อง)</td>
+                <td>VCC</td>
+                <td>5V Rail หรือ 3.3V</td>
+                <td>-</td>
+                <td>ไฟเลี้ยงเซนเซอร์</td>
+            </tr>
+            <tr>
+                <td>GND</td>
+                <td>Common GND</td>
+                <td>GND</td>
+                <td>กราวด์ร่วมระบบ</td>
+            </tr>
+            <tr>
+                <td>OUT</td>
+                <td>ขาสัญญาณทริกเกอร์</td>
+                <td><b>GPIO 0</b></td>
+                <td>เมื่อมีวัตถุจ่อ ส่งสัญญาณ LOW (Active-Low)</td>
+            </tr>
+            <tr style="border-top: 2px solid #cbd5e1;">
+                <td rowspan="4"><b>เซอร์โวมอเตอร์ 4 ตัว</b><br/>(SG90 9g เปิด-ปิดฝา)</td>
+                <td>Servo 1 (ทั่วไป) สัญญาณ</td>
+                <td>สายสีส้ม/เหลือง</td>
+                <td><b>GPIO 21</b></td>
+                <td>เปิดฝาถังขยะทั่วไป 90 องศา (3.5 วินาที)</td>
+            </tr>
+            <tr>
+                <td>Servo 2 (รีไซเคิล) สัญญาณ</td>
+                <td>สายสีส้ม/เหลือง</td>
+                <td><b>GPIO 38</b></td>
+                <td>เปิดฝาถังขยะรีไซเคิล 90 องศา (3.5 วินาที)</td>
+            </tr>
+            <tr>
+                <td>Servo 3 (ขยะเปียก) สัญญาณ</td>
+                <td>สายสีส้ม/เหลือง</td>
+                <td><b>GPIO 39</b></td>
+                <td>เปิดฝาถังขยะเปียก 90 องศา (3.5 วินาที)</td>
+            </tr>
+            <tr>
+                <td>Servo 4 (อันตราย) สัญญาณ</td>
+                <td>สายสีส้ม/เหลือง</td>
+                <td><b>GPIO 40</b></td>
+                <td>เปิดฝาถังขยะอันตราย 90 องศา (3.5 วินาที)</td>
+            </tr>
+            <tr>
+                <td>ไฟเลี้ยงเซอร์โว (ทุกตัว)</td>
+                <td>สายสีแดง (VCC)</td>
+                <td><b>แบตเตอรี่ / แหล่งจ่ายแยก 5V</b></td>
+                <td>-</td>
+                <td><b>ห้ามดึงไฟจากบอร์ด ESP32-S3 เด็ดขาด!</b> ป้องกันไฟตกบอร์ดรีเซ็ต</td>
+            </tr>
+            <tr>
+                <td>กราวด์เซอร์โว (ทุกตัว)</td>
+                <td>สายสีน้ำตาล/ดำ</td>
+                <td>Common GND ร่วม</td>
+                <td>GND</td>
+                <td>ต้องต่อขั้วลบถึงขั้วลบของ ESP32-S3 ทุกเส้น</td>
+            </tr>
+            <tr style="border-top: 2px solid #cbd5e1;">
+                <td rowspan="5"><b>เซนเซอร์อัลตราโซนิค 4 ตัว</b><br/>(HC-SR04 ตรวจขยะเต็ม)</td>
+                <td>TRIG ร่วม (ทุกตัว)</td>
+                <td>ต่อรวมกันทั้ง 4 ตัว</td>
+                <td><b>GPIO 14</b></td>
+                <td>ยิงคลื่นเสียงพร้อมกันทั้ง 4 ช่องถัง</td>
+            </tr>
+            <tr>
+                <td>Echo 1 (ทั่วไป)</td>
+                <td>ผ่านตัวต้านทาน 1k+2k</td>
+                <td><b>GPIO 47</b></td>
+                <td>วัดระยะผิวขยะถังทั่วไป (เตือนเมื่อ &le; 8 ซม.)</td>
+            </tr>
+            <tr>
+                <td>Echo 2 (รีไซเคิล)</td>
+                <td>ผ่านตัวต้านทาน 1k+2k</td>
+                <td><b>GPIO 48</b></td>
+                <td>วัดระยะผิวขยะถังรีไซเคิล (เตือนเมื่อ &le; 8 ซม.)</td>
+            </tr>
+            <tr>
+                <td>Echo 3 (ขยะเปียก)</td>
+                <td>ผ่านตัวต้านทาน 1k+2k</td>
+                <td><b>GPIO 3</b></td>
+                <td>วัดระยะผิวขยะถังขยะเปียก (เตือนเมื่อ &le; 8 ซม.)</td>
+            </tr>
+            <tr>
+                <td>Echo 4 (อันตราย)</td>
+                <td>ผ่านตัวต้านทาน 1k+2k</td>
+                <td><b>GPIO 10</b></td>
+                <td>วัดระยะผิวขยะถังอันตราย (เตือนเมื่อ &le; 8 ซม.)</td>
+            </tr>
+            <tr style="border-top: 2px solid #cbd5e1;">
+                <td rowspan="2"><b>โมดูลกล้อง ESP32-CAM</b><br/>(OV2640 Wi-Fi Node)</td>
+                <td>5V</td>
+                <td>รางไฟ 5V Rail</td>
+                <td>-</td>
+                <td>ไฟเลี้ยงกล้องแยก ต้องการกระแสเสถียร (&ge; 1A)</td>
+            </tr>
+            <tr>
+                <td>GND</td>
+                <td>Common GND</td>
+                <td>GND</td>
+                <td>กราวด์ร่วม สื่อสารไร้สายผ่าน Wi-Fi ภายใน (ESP32-CAM-MB: 192.168.4.1)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+        <b>⚡ ข้อควรระวังเรื่องระบบไฟฟ้า (Critical Electrical Safety):</b><br/>
+        1. <b>ห้ามดึงไฟ 5V/3.3V จากขาบอร์ด ESP32 ไปเลี้ยงมอเตอร์เซอร์โว:</b> เนื่องจากเซอร์โว 4 ตัวกินกระแสไฟสูง กระชากไฟได้ถึง 1A–2A ต้องใช้ไฟตรงจาก <b>Step-Down Buck Converter (5.0V เสถียร)</b> หรือ Power Bank จ่ายไฟแยก<br/>
+        2. <b>ต้องต่อ Common Ground (GND ร่วม):</b> ขั้วลบ (GND) ของแหล่งจ่ายไฟ, บอร์ด ESP32-S3, ESP32-CAM, มอเตอร์เซอร์โว และเซนเซอร์ทุกตัว <b>ต้องเชื่อมต่อถึงกันทั้งหมด</b> มิฉะนั้นมอเตอร์จะกระตุกและเซนเซอร์จะอ่านค่าผิดพลาด
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ==================== PAGE 3 ==================== -->
+    <h2>4. กลไกการสลับ Wi-Fi ส่งภาพ Cloud AI เมื่อไม่ต่อคอม (Dual-Hop Flow)</h2>
+    <div class="card" style="background:#f8fafc; border:1px solid #cbd5e1; margin-bottom:12px;">
+        <p style="margin:0; font-size:12px;">
+            <b>📡 ขั้นตอนการทำงานไร้สายเมื่อถอดสายออกจากแล็ปท็อป (Wireless Cloud Pipeline):</b><br/>
+            1. <b>ปกติ (Standby):</b> ESP32-S3 เกาะสัญญาณ Wi-Fi วงปิดของบอร์ดกล้อง (<span class="code-inline">ESP32-CAM-MB</span>) ตรวจระดับถังและรอขยะ<br/>
+            2. <b>เมื่อตรวจพบขยะ:</b> นับถอยหลัง 3.. 2.. 1.. ถ่ายภาพความละเอียด 800x600 ดึงไฟล์ JPEG เข้าหน่วยความจำ RAM ในตัว<br/>
+            3. <b>สลับ Wi-Fi (Hop 1):</b> ESP32-S3 สลับไปเชื่อมต่อ Wi-Fi บ้าน (<span class="code-inline">CCPP_HOME_2.4G</span>) หรือ Hotspot มือถือ (<span class="code-inline">oOKKKOo</span>) ภายใน 1.5 วินาที<br/>
+            4. <b>ส่งภาพ Cloud (Hop 2):</b> ส่งไฟล์ JPEG ผ่าน HTTP POST ไปยังเซิร์ฟเวอร์ Cloud AI (<span class="code-inline">http://192.168.1.145:5000/classify</span> หรือ Cloud API)<br/>
+            5. <b>ประมวลผล & เปิดฝา:</b> เซิร์ฟเวอร์รัน Custom YOLOv8 ตอบผลลัพธ์กลับมา -> สั่งเปิดฝาถังขยะ 90 องศา ค้าง 3.5 วินาที<br/>
+            6. <b>สลับ Wi-Fi กลับ:</b> ESP32-S3 สลับ Wi-Fi กลับมาเกาะกล้อง OV2640 เตรียมพร้อมสำหรับการทิ้งขยะชิ้นถัดไปทันที<br/>
+            <i>* หากจุดที่ตั้งไม่มีสัญญาณ Wi-Fi หรือ Cloud ไม่ตอบสนองใน 4 วิ -> ระบบจะสลับไปใช้ Onboard Edge AI บนชิปอัตโนมัติ (ไม่ค้างแน่นอน)</i>
+        </p>
+    </div>
+
+    <h2>5. วิธีการเปิดเครื่องใช้งานจริง (Checklist 3 โหมด)</h2>
+    <div class="grid-3">
+        <div class="card" style="border-top: 4px solid #0284c7;">
+            <h4>📶 แบบ 1: ไม่ต่อคอม + มีเน็ต (Wireless Cloud)</h4>
+            <ol style="padding-left: 16px; margin: 4px 0; font-size:11.5px;">
+                <li>เปิดคอมพิวเตอร์ที่รัน <span class="code-inline">RUN_SMART_BIN_LIVE.bat</span> ในวง Wi-Fi เดียวกัน (หรือเปิดเซิร์ฟเวอร์บน Cloud)</li>
+                <li>เสียบไฟ 5V ให้ถังขยะ (Power Bank) <b>โดยไม่ต้องเสียบสายเข้าคอม</b></li>
+                <li>นำขยะมาจ่อหน้าเซนเซอร์ IR -> กล้องถ่ายภาพ -> สลับ Wi-Fi ยิงเข้า Cloud AI -> เปิดฝาถังตามผลลัพธ์ YOLOv8 อัตโนมัติ!</li>
+            </ol>
+        </div>
+        <div class="card" style="border-top: 4px solid #10b981;">
+            <h4>🔋 แบบ 2: ไม่ต่อคอม + ไม่มีเน็ต (Offline Edge)</h4>
+            <ol style="padding-left: 16px; margin: 4px 0; font-size:11.5px;">
+                <li>นำถังขยะไปตั้งที่ไหนก็ได้ (นอกบ้าน/กลางแจ้ง) <b>ไม่ต้องมีเน็ต ไม่ต้องมีคอม</b></li>
+                <li>เสียบไฟ 5V จาก Power Bank ก้อนเดียว</li>
+                <li>รอระบบขึ้น <span class="code-inline">[ READY ]</span> ภายใน 5 วินาที</li>
+                <li>นำขยะมาจ่อหน้าเซนเซอร์ -> ชิป ESP32-S3 ประมวลผลภาพบนบอร์ดเอง (TJpg_Decoder) ใน 20ms และเปิดฝาถังทันที!</li>
+            </ol>
+        </div>
+        <div class="card" style="border-top: 4px solid #6366f1;">
+            <h4>💻 แบบ 3: เสียบสายต่อคอม (PC Lab & Demo)</h4>
+            <ol style="padding-left: 16px; margin: 4px 0; font-size:11.5px;">
+                <li>เสียบสาย USB-C จาก ESP32-S3 เข้าโน้ตบุ๊ก</li>
+                <li>ดับเบิลคลิก <span class="code-inline">RUN_SMART_BIN_LIVE.bat</span></li>
+                <li>เปิดหน้าเว็บ <span class="code-inline">VIEW_RESULT.html</span></li>
+                <li>สแกนขยะแล้วดูภาพถ่ายสด กรอบการตรวจจับ และระดับความมั่นใจของ AI ขึ้นบนหน้าจอคอมพิวเตอร์แบบเรียลไทม์</li>
+            </ol>
+        </div>
+    </div>
+
+    <h2>6. โครงสร้างไฟล์และสคริปต์สำคัญของโครงการ (Project Directory)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:38%;">ไฟล์ / โฟลเดอร์</th>
+                <th style="width:62%;">คำอธิบายหน้าที่</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="code-inline">src/smart_trash_bin_ov2640/smart_trash_bin_ov2640.ino</span></td>
+                <td>โค้ดเฟิร์มแวร์หลักของ ESP32-S3 (รวมระบบ Edge AI, Dual-Hop Wi-Fi, เซอร์โว 4 ตัว, อัลตราโซนิค 4 ตัว)</td>
+            </tr>
+            <tr>
+                <td><span class="code-inline">ai_training/cloud_ai_server.py</span></td>
+                <td>เซิร์ฟเวอร์ Cloud AI (Flask + YOLOv8) รองรับการสแกนสด, API /classify, และ แกลเลอรีภาพ</td>
+            </tr>
+            <tr>
+                <td><span class="code-inline">ai_training/trained_models/smart_bin_best.pt</span></td>
+                <td>ไฟล์โมเดล Custom YOLOv8 ที่ผ่านการเทรนและ Fine-tuning (ตรวจจับขวดน้ำแม่นยำ 94.6%)</td>
+            </tr>
+            <tr>
+                <td><span class="code-inline">captured_scans/</span></td>
+                <td>โฟลเดอร์จัดเก็บภาพถ่ายจริงจากการสแกนทุกชิ้น ระบุชื่อตามวันเวลาและประเภท</td>
+            </tr>
+            <tr>
+                <td><span class="code-inline">VIEW_RESULT.html</span></td>
+                <td>หน้าเว็บ Dashboard แสดงผลการจำแนกสดแบบเรียลไทม์ พร้อมแกลเลอรีภาพถ่ายย้อนหลัง</td>
+            </tr>
+            <tr>
+                <td><span class="code-inline">RUN_SMART_BIN_LIVE.bat</span></td>
+                <td>สคริปต์เปิดระบบเซิร์ฟเวอร์ Cloud AI และหน้าต่าง Dashboard อัตโนมัติในคลิกเดียว</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+"""
+
+# 1. เขียนไฟล์ HTML
+with open(HTML_PATH, "w", encoding="utf-8") as f:
+    f.write(html_content)
+print(f"HTML Summary created at: {HTML_PATH}")
+
+# 2. แปลงเป็น PDF ผ่าน Microsoft Edge Headless
+edge_paths = [
+    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+    r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+]
+browser_path = None
+for p in edge_paths:
+    if os.path.exists(p):
+        browser_path = p
+        break
+
+if browser_path:
+    cmd = [
+        browser_path,
+        "--headless",
+        "--disable-gpu",
+        f"--print-to-pdf={PDF_PATH}",
+        "--no-pdf-header-footer",
+        HTML_PATH
+    ]
+    print(f"Generating PDF with: {browser_path}")
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    if os.path.exists(PDF_PATH):
+        print(f"SUCCESS: PDF generated at: {PDF_PATH} (Size: {os.path.getsize(PDF_PATH)} bytes)")
+    else:
+        print(f"Error generating PDF: {res.stderr}")
+else:
+    print("Browser not found for PDF generation.")

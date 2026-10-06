@@ -1,0 +1,68 @@
+{
+	"folders": [
+		{
+			"name": "🗑️ Smart AI Trash Bin (Root)",
+			"path": "."
+		},
+		{
+			"name": "🧠 AI Training & Server",
+			"path": "ai_training"
+		},
+		{
+			"name": "⚡ ESP32-S3 Firmware",
+			"path": "src/smart_trash_bin_ov2640"
+		},
+		{
+			"name": "📸 Captured Scans Gallery",
+			"path": "captured_scans"
+		}
+	],
+	"settings": {
+		"files.encoding": "utf8",
+		"python.defaultInterpreterPath": "python",
+		"editor.formatOnSave": true,
+		"editor.tabSize": 4,
+		"files.associations": {
+			"*.ino": "cpp",
+			"*.yaml": "yaml",
+			"*.bat": "bat"
+		},
+		"workbench.colorCustomizations": {
+			"titleBar.activeBackground": "#0369a1",
+			"titleBar.activeForeground": "#ffffff"
+		}
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "🚀 1. Run Cloud AI Server",
+				"type": "shell",
+				"command": "python ai_training/cloud_ai_server.py",
+				"problemMatcher": [],
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			},
+			{
+				"label": "🧪 2. Test All User Scans",
+				"type": "shell",
+				"command": "python ai_training/test_all_user_items.py",
+				"problemMatcher": []
+			},
+			{
+				"label": "📄 3. Generate Evaluation Criteria PDF",
+				"type": "shell",
+				"command": "python ai_training/generate_criteria_pdf.py",
+				"problemMatcher": []
+			},
+			{
+				"label": "🦾 4. Test Hardware Servos",
+				"type": "shell",
+				"command": ".\\TEST_SERVO.bat",
+				"problemMatcher": []
+			}
+		]
+	}
+}

@@ -1,0 +1,9 @@
+path: C:/Users/purin/OneDrive/Desktop/plaplapla/ai_training/dataset
+train: images/train
+val: images/val
+
+names:
+  0: General
+  1: Recyclable
+  2: Wet
+  3: Hazardous
