@@ -52,13 +52,7 @@
 				"problemMatcher": []
 			},
 			{
-				"label": "📄 3. Generate Evaluation Criteria PDF",
-				"type": "shell",
-				"command": "python ai_training/generate_criteria_pdf.py",
-				"problemMatcher": []
-			},
-			{
-				"label": "🦾 4. Test Hardware Servos",
+				"label": "🦾 3. Test Hardware Servos",
 				"type": "shell",
 				"command": ".\\TEST_SERVO.bat",
 				"problemMatcher": []

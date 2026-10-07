@@ -29,6 +29,18 @@ test_run.log
 Thumbs.db
 desktop.ini
 
+# Runtime scan outputs
+RESULT_SCAN.jpg
+RESULT_LATEST_SCAN.jpg
+
+# Old duplicate datasets
+ai_training/dataset/
+
+# Evaluation criteria files
+*criteria*
+*Criteria*
+PROJECT_EVALUATION_CRITERIA_SUMMARY.*
+
 # IDE & Editor User Configs (Preserve workspace & tasks)
 .vscode/*
 !.vscode/tasks.json

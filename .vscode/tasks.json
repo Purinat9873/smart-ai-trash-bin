@@ -16,12 +16,6 @@
             "type": "shell",
             "command": "python ai_training/test_all_user_items.py",
             "problemMatcher": []
-        },
-        {
-            "label": "📄 Generate Evaluation Criteria PDF",
-            "type": "shell",
-            "command": "python ai_training/generate_criteria_pdf.py",
-            "problemMatcher": []
         }
     ]
 }

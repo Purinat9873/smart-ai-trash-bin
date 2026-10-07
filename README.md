@@ -15,7 +15,7 @@
 4. [ตารางผังการต่อขา GPIO (Safe Pinout Table)](#-ตารางผังการต่อขา-gpio)
 5. [ระบบปัญญาประดิษฐ์และชุดข้อมูล (AI & Dataset)](#-ระบบปัญญาประดิษฐ์และชุดข้อมูล)
 6. [การเริ่มต้นใช้งานจริง (Getting Started)](#-การเริ่มต้นใช้งานจริง)
-7. [เอกสารประกอบการประเมินโครงการ (Evaluation & Reports)](#-เอกสารประกอบการประเมินโครงการ)
+7. [เอกสารคู่มือและเครื่องมือ (Documentation & Tools)](#-เอกสารคู่มือและเครื่องมือ)
 
 ---
 
@@ -61,7 +61,7 @@
 ## 📁 โครงสร้างไดเรกทอรีโปรเจกต์
 
 ```text
-plaplapla/
+smart-ai-trash-bin/
 ├── src/
 │   └── smart_trash_bin_ov2640/
 │       └── smart_trash_bin_ov2640.ino          # [เฟิร์มแวร์หลัก] โค้ด C++/Arduino บน ESP32-S3 (1,130 บรรทัด)
@@ -70,24 +70,30 @@ plaplapla/
 │   ├── train_comprehensive_model.py            # [การฝึกสอน] เทรน YOLOv8 Nano บน CPU 20 เธรด
 │   ├── build_comprehensive_dataset.py          # [ไปป์ไลน์ข้อมูล] สคริปต์ดาวน์โหลด COCO + แปลงคลาส
 │   ├── prepare_user_held_items_dataset.py      # [ข้อมูลจริง] สคริปต์ผสานภาพสแกนจริงจากกล้อง OV2640
+│   ├── expand_general_class.py                 # [ปรับสมดุล] เพิ่มภาพขยะทั่วไป Class 0
 │   ├── test_all_user_items.py                  # [ชุดทดสอบ] ตรวจสอบความถูกต้องกับวัตถุจริง 16 รายการ
-│   ├── generate_criteria_pdf.py                # [สร้างเอกสาร] สคริปต์แปลงผลประเมินเป็น PDF
 │   ├── trained_models/
 │   │   └── smart_bin_best.pt                   # โมเดลน้ำหนักที่ดีที่สุด (ขนาด 6.2 MB)
+│   ├── yolov8n.pt                              # โมเดลรากฐาน (COCO Pretrained Base)
 │   └── comprehensive_dataset/                  # ชุดข้อมูล 1,224 ภาพพร้อม YOLO Labels
 │       ├── data.yaml
 │       ├── images/ (train, val)
 │       └── labels/ (train, val)
 ├── docs/
 │   ├── pinout_and_circuit.md                   # ผังการต่อสายและวงจรอย่างละเอียด
+│   ├── calibration_guide.md                    # คู่มือการปรับแต่งและจูนเซนเซอร์
 │   └── bill_of_materials.md                    # ตารางแจกแจงรายการและราคาอุปกรณ์
 ├── captured_scans/                             # ประวัติภาพถ่ายจริงจากกล้อง OV2640
+├── tests/                                      # สเก็ตช์ทดสอบฮาร์ดแวร์แยกชิ้น
 ├── VIEW_RESULT.html                            # แดชบอร์ดเว็บแสดงผลสด (Real-Time Auto Refresh)
 ├── smart-trash-bin.code-workspace              # ไฟล์โปรเจกต์สำหรับเปิดใน VS Code
 ├── PROJECT_CODEBASE_EXPLANATION.md             # คู่มืออธิบายโค้ดทั้งหมดอย่างละเอียด
-├── PROJECT_EVALUATION_CRITERIA_SUMMARY.pdf     # รายงานผลประเมินเทียบเกณฑ์แข่งขัน 100%
 ├── MASTER_WIRING_GUIDE.md                      # คู่มือการต่อสายไฟระบบความปลอดภัย
 ├── RUN_CLOUD_AI_SERVER.bat                     # สคริปต์ดับเบิลคลิกเปิดเซิร์ฟเวอร์
+├── RUN_SMART_BIN_LIVE.bat                      # สคริปต์เปิดการทำงานสด
+├── TEST_SERVO.bat                              # สคริปต์ทดสอบเซอร์โว
+├── TEST_SENSORS.bat                            # สคริปต์ทดสอบเซนเซอร์
+├── UPLOAD_FIRMWARE.bat                         # สคริปต์อัปโหลดเฟิร์มแวร์
 └── README.md                                   # เอกสารภาพรวมหลัก
 ```
 
@@ -146,10 +152,9 @@ python ai_training/test_all_user_items.py
 
 ---
 
-## 📄 เอกสารประกอบการประเมินโครงการ
+## 📄 เอกสารคู่มือและเครื่องมือ
 
-โครงการจัดทำเอกสารและรายงานฉบับสมบูรณ์ไว้ในที่เก็บข้อมูล:
-* 📑 **รายงานการประเมินโครงการตามเกณฑ์ 100% (PDF):** [`PROJECT_EVALUATION_CRITERIA_SUMMARY.pdf`](PROJECT_EVALUATION_CRITERIA_SUMMARY.pdf)
+โครงการจัดทำเอกสารและเครื่องมือสำหรับการพัฒนาต่อยอด:
 * 📖 **คู่มืออธิบายโค้ดทั้งหมด (VS Code Guide):** [`PROJECT_CODEBASE_EXPLANATION.md`](PROJECT_CODEBASE_EXPLANATION.md)
-* ⚡ **คู่มือการต่อสายและระบบความปลอดภัย (PDF):** [`Smart_Trash_Bin_Wiring_and_Safety_Guide.pdf`](Smart_Trash_Bin_Wiring_and_Safety_Guide.pdf)
+* ⚡ **คู่มือการต่อสายและระบบความปลอดภัย:** [`MASTER_WIRING_GUIDE.md`](MASTER_WIRING_GUIDE.md)
 * 🖥️ **ไฟล์ Workspace สำหรับ VS Code:** [`smart-trash-bin.code-workspace`](smart-trash-bin.code-workspace)

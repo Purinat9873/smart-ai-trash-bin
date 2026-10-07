@@ -24,7 +24,6 @@
 │   ├── 📄 prepare_user_held_items_dataset.py  # [ข้อมูลจริง] สคริปต์ผสานภาพสแกนกล้อง OV2640 + Augment
 │   ├── 📄 expand_general_class.py             # [ปรับสมดุล] เพิ่มภาพขยะทั่วไป Class 0
 │   ├── 📄 test_all_user_items.py              # [ชุดทดสอบ] ตรวจสอบความถูกต้องกับวัตถุจริง 16 รายการ
-│   ├── 📄 generate_criteria_pdf.py            # [สร้างเอกสาร] สคริปต์สร้างรายงานผลประเมินเป็น PDF
 │   └── 📂 comprehensive_dataset/
 │       ├── 📄 data.yaml                       # ไฟล์คอนฟิกชุดข้อมูลสำหรับ YOLOv8
 │       ├── 📂 images/ (train: 1021, val: 203)
@@ -32,7 +31,6 @@
 │
 ├── 📂 captured_scans/                         # โฟลเดอร์เก็บภาพสแกนจริงจากกล้อง OV2640 ทั้งหมด
 ├── 📄 VIEW_RESULT.html                        # แดชบอร์ดเว็บแสดงผลสด (Live Real-Time Web Dashboard)
-├── 📄 PROJECT_EVALUATION_CRITERIA_SUMMARY.pdf # ไฟล์ PDF รายงานการประเมินตามเกณฑ์ 100%
 ├── 📄 MASTER_WIRING_GUIDE.md                  # คู่มือการต่อสายไฟและระบบฮาร์ดแวร์
 └── 📄 RUN_CLOUD_AI_SERVER.bat                 # สคริปต์ดับเบิลคลิกเปิดเซิร์ฟเวอร์ Cloud AI
 ```
@@ -205,4 +203,3 @@
 3. กดปุ่ม `Ctrl + Shift + B` เพื่อเลือกรันคำสั่งทางลัดได้ทันที เช่น:
    - **Start Cloud AI Server** (เปิดเซิร์ฟเวอร์ AI)
    - **Run Model Verification Test Suite** (ทดสอบความแม่นยำ)
-   - **Generate Evaluation Criteria PDF** (สร้างไฟล์เอกสาร PDF)
