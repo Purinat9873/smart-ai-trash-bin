@@ -79,10 +79,6 @@ smart-ai-trash-bin/
 │       ├── data.yaml
 │       ├── images/ (train, val)
 │       └── labels/ (train, val)
-├── docs/
-│   ├── pinout_and_circuit.md                   # ผังการต่อสายและวงจรอย่างละเอียด
-│   ├── calibration_guide.md                    # คู่มือการปรับแต่งและจูนเซนเซอร์
-│   └── bill_of_materials.md                    # ตารางแจกแจงรายการและราคาอุปกรณ์
 ├── captured_scans/                             # ประวัติภาพถ่ายจริงจากกล้อง OV2640
 ├── tests/                                      # สเก็ตช์ทดสอบฮาร์ดแวร์แยกชิ้น
 ├── VIEW_RESULT.html                            # แดชบอร์ดเว็บแสดงผลสด (Real-Time Auto Refresh)
